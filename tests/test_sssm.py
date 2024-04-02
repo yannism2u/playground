@@ -1,4 +1,5 @@
 """Unit tests for module sssm"""
+# pylint: disable=E0401
 import datetime
 import unittest
 
@@ -60,12 +61,12 @@ class StockMarketTest(unittest.TestCase):
 
     def test_record_trade_valid_trade(self):
         """Tests recording a valid trade."""
-        timestamp = datetime.datetime.now()
+        time_stamp = datetime.datetime.now()
         symbol = "TEA"
         quantity = 100
         buy_sell = "Buy"
         price = 170.00
-        trade = Trade(timestamp, symbol, quantity, buy_sell, price)
+        trade = Trade(time_stamp, symbol, quantity, buy_sell, price)
         self.market.record_trade(trade)
 
         # Check if the trade is present in the market's trade list
@@ -102,11 +103,11 @@ class StockMarketTest(unittest.TestCase):
 
     def test_volume_weighted_stock_price_past_trades(self):
         """Tests volume-weighted stock price calculation with past trades."""
-        timestamp = datetime.datetime.now() - datetime.timedelta(minutes=10)
-        self.market.record_trade(Trade(timestamp, "TEA", 100, "Buy",
+        time_stamp = datetime.datetime.now() - datetime.timedelta(minutes=10)
+        self.market.record_trade(Trade(time_stamp, "TEA", 100, "Buy",
                                        172.50))
-        timestamp = datetime.datetime.now() - datetime.timedelta(minutes=5)
-        self.market.record_trade(Trade(timestamp, "TEA", 50, "Sell",
+        time_stamp = datetime.datetime.now() - datetime.timedelta(minutes=5)
+        self.market.record_trade(Trade(time_stamp, "TEA", 50, "Sell",
                                        168.75))
 
         expected_price = (100 * 172.50 + 50 * 168.75) / (100 + 50)
