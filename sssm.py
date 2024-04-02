@@ -156,3 +156,37 @@ class StockMarket:
             raise ValueError("No stock prices available for index calculation.")
 
         return prod(prices) ** (1/len(prices))
+
+
+if __name__ == '__main__':
+    # Example usage
+    market = StockMarket()
+
+    # Add some stocks (replace with actual data)
+    tea = Stock("TEA", "Common", 0.0, 100)
+    pop = Stock("POP", "Common", 8, 100)
+    ale = Stock("ALE", "Common", 23, 60)
+    gin = Stock("GIN", "Preferred", 8, 100)
+    joe = Stock("JOE", "Common", 23, 250)
+    market.add_stock(tea)
+    market.add_stock(pop)
+    market.add_stock(ale)
+    market.add_stock(gin)
+    market.add_stock(joe)
+
+    # Example trade recording
+    timestamp = datetime.datetime.now()
+    market.record_trade(Trade(timestamp, "TEA", 100, "Buy", 160.50))
+    market.record_trade(Trade(timestamp, "POP", 50, "Sell", 87.30))
+
+    # Example calculations (replace symbol and price as needed)
+    symbol = "TEA"
+    price = 170.00
+
+    dividend_yield = market.stocks[symbol].calculate_dividend_yield(price)
+    pe_ratio = market.stocks[symbol].calculate_pe_ratio
+
+    tea.price = market.calculate_volume_weighted_stock_price("TEA")
+    pop.price = market.calculate_volume_weighted_stock_price("POP")
+    gbce_all_share_index = market.calculate_gbce_all_share_index()
+
